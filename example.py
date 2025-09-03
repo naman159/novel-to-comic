@@ -194,7 +194,6 @@ His boring world had changed, and he had no intention of making this damn forest
     print("\n🎬 Processing chapter with Enhanced Features...")
     print("This enhanced version includes:")
     print("   ✅ Intelligent scene analysis and continuity tracking")
-    print("   ✅ Advanced redundancy detection and prevention")
     print("   ✅ Smart location consistency management")
     print("   ✅ AI-powered panel count optimization")
     print("\nThis may take several minutes as the AI generates images...")
@@ -222,12 +221,6 @@ His boring world had changed, and he had no intention of making this damn forest
             )
             print(
                 f"   - Continuity tracking: {'✅ Enabled' if secrets.ENABLE_CONTINUITY_TRACKING else '❌ Disabled'}"
-            )
-            print(
-                f"   - Redundancy detection: {'✅ Enabled' if secrets.ENABLE_REDUNDANCY_DETECTION else '❌ Disabled'}"
-            )
-            print(
-                f"   - Panel optimization: {'✅ Enabled' if hasattr(comic_generator, 'generated_panels') else '❌ Disabled'}"
             )
 
         print("\n🎉 Your manhwa comic is ready!")

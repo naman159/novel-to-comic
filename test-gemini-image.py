@@ -5,19 +5,26 @@ from PIL import Image
 from io import BytesIO
 from google.oauth2 import service_account
 import mimetypes
+import os
 
 secrets = Secrets()
 
+# Use the service account file path from environment variable or default to local file
+sa_path = secrets.GOOGLE_CLOUD_SA_PATH or "sa-key.json"
+
 credentials = service_account.Credentials.from_service_account_file(
-    secrets.GOOGLE_CLOUD_SA_PATH,
+    sa_path,
     scopes=[
         "https://www.googleapis.com/auth/generative-language",
         "https://www.googleapis.com/auth/cloud-platform",
     ],
 )
 
+# Set project and location from service account or environment
+project = secrets.GOOGLE_CLOUD_PROJECT or "nove-470619"
+location = secrets.GOOGLE_CLOUD_LOCATION or "us-central1"
 
-prompt = "Create a picture of cyw on a beach"
+prompt = "Create a picture of a cat sitting on a chair"
 
 
 def save_binary_file(file_name, data):
@@ -30,8 +37,8 @@ def save_binary_file(file_name, data):
 def generate():
     client = Client(
         vertexai=True,
-        project=secrets.GOOGLE_CLOUD_PROJECT,
-        location=secrets.GOOGLE_CLOUD_LOCATION,
+        project=project,
+        location=location,
         credentials=credentials,
     )
 

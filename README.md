@@ -1,171 +1,116 @@
 # Novel to Comic Generator (NTC)
 
-A Python application that converts novel chapters into manhwa-style comics using Google's Gemini 2.5 Flash AI models. The system maintains character and location consistency across panels and chapters.
-
-## Architecture Overview
-
-### Core Components
-
-1. **Entity Management System**
-
-   - **Character Registry**: Stores character descriptions, visual traits, and generated images
-   - **Location Registry**: Stores location descriptions and generated background images
-   - **Asset Database**: Persistent JSON storage mapping entity names to asset metadata and image paths
-
-2. **Chapter Processing Pipeline**
-
-   - **Scene Segmentation**: AI breaks chapter into logical scenes
-   - **Panel Planning**: AI determines how many panels per scene and their content
-   - **Asset Identification**: Extract which characters/locations appear in each panel
-   - **Image Generation**: Compose panels using consistent assets
-
-3. **Asset Consistency Strategy**
-   - **Character Templates**: Generate character base images with consistent style
-   - **Location Templates**: Generate location base images
-   - **Composition Engine**: Combine assets using Gemini 2.5 Flash for final panel generation
-
-### Data Flow
-
-```
-Novel Chapter → Entity Extraction → Asset Generation → Scene Segmentation → Panel Planning → Image Composition → Comic Panels
-```
+A Python application that converts novel chapters into manhwa-style comics using Google's Gemini 2.5 Flash models on Vertex AI. It persistently manages characters and locations and composes panels by combining character assets with character-free location backgrounds.
 
 ## Features
 
-- **Character Consistency**: Maintains consistent character appearances across panels
-- **Location Consistency**: Reuses location backgrounds for visual coherence
-- **AI-Powered Scene Analysis**: Automatically identifies scenes and creates appropriate panels
-- **Persistent Asset Storage**: Saves generated assets for reuse across chapters
-- **Manhwa Style**: Generates images in modern manhwa/webtoon style
+- **Entity extraction**: Identifies characters and locations from chapter text
+- **Consistent assets**: Generates and reuses character portraits and location backgrounds
+- **Continuity-aware scenes**: Narrative structure analysis and continuity tracking across scenes
+- **Panel direction**: Varying panel types and camera angles per scene
+- **Asset composition**: Combines separate character and location images for final panels
+- **Graceful fallback**: Generates placeholders when the API is unavailable or image generation fails
+
+## Requirements
+
+- Python 3.11+
+- Google Cloud project with Vertex AI enabled
+- Service account with Vertex AI permissions and a JSON key file
 
 ## Installation
 
-1. **Clone the repository**:
+```bash
+pip install -e .
+```
 
-   ```bash
-   git clone <repository-url>
-   cd ntc
-   ```
+Optionally use a virtual environment.
 
-2. **Install dependencies**:
+## Setup (Vertex AI)
 
-   ```bash
-   pip install -e .
-   ```
+This project uses `google-genai` in Vertex AI mode with a service account.
 
-3. **Set up Google Gemini API**:
-   - Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - Set the environment variable:
-     ```bash
-     export GOOGLE_API_KEY="your-api-key-here"
-     ```
+Set the following environment variables (a `.env` file is supported):
 
-## Usage
+```bash
+export GOOGLE_CLOUD_PROJECT="your-gcp-project-id"
+export GOOGLE_CLOUD_LOCATION="us-central1"        # or "global" (default)
+export GOOGLE_CLOUD_SA_PATH="/absolute/path/to/your-sa-key.json"
+```
 
-### Basic Usage
+Ensure Vertex AI is enabled in your project and the service account has appropriate permissions.
+
+## Quick Start
 
 ```python
-from main import NovelToComic
+from main import EnhancedNovelToComic
 
-# Initialize the comic generator
-comic_generator = NovelToComic(output_dir="my_comic")
-
-# Process a chapter
 chapter_text = """
 Chapter 1: The Beginning
 
 Sarah stood at the edge of the ancient forest, her heart pounding with anticipation...
 """
 
-# Generate comic panels
-panel_paths = comic_generator.process_chapter(chapter_text)
+comic = EnhancedNovelToComic(output_dir="my_comic")
+panel_paths = comic.process_chapter(chapter_text)
 
 print(f"Generated {len(panel_paths)} panels:")
-for i, path in enumerate(panel_paths):
-    print(f"  Panel {i+1}: {path}")
+for i, path in enumerate(panel_paths, start=1):
+    print(f"  Panel {i}: {path}")
 ```
 
-### Advanced Usage
-
-```python
-# Custom output directory
-comic_generator = NovelToComic(output_dir="custom_output")
-
-# Process multiple chapters
-chapters = [
-    "Chapter 1 text...",
-    "Chapter 2 text...",
-    "Chapter 3 text..."
-]
-
-for i, chapter in enumerate(chapters):
-    print(f"Processing Chapter {i+1}...")
-    panel_paths = comic_generator.process_chapter(chapter)
-    print(f"Generated {len(panel_paths)} panels for Chapter {i+1}")
-```
+See `example.py` for a longer runnable example and richer output.
 
 ## Project Structure
 
 ```
 ntc/
-├── main.py              # Main application logic
-├── image_utils.py       # Image generation utilities
-├── pyproject.toml       # Project configuration
-├── README.md           # This file
-└── comic_output/       # Generated assets (created at runtime)
-    ├── characters/     # Character images
-    ├── locations/      # Location images
-    ├── panels/         # Generated comic panels
-    ├── characters.json # Character metadata
-    └── locations.json  # Location metadata
+├── main.py              # Core pipeline and data classes
+├── image_utils.py       # Vertex AI image generation, composition, placeholders
+├── config.py            # Pydantic settings for environment configuration
+├── example.py           # End-to-end example script
+├── ARCHITECTURE.md      # Deep-dive into the system
+├── README.md            # This file
+└── comic_output/        # Generated assets (created at runtime)
+    ├── characters/      # Character images
+    ├── locations/       # Location images (no characters)
+    ├── panels/          # Final composed comic panels
+    ├── characters.json  # Character metadata
+    └── locations.json   # Location metadata
 ```
 
 ## API Reference
 
-### NovelToComic Class
-
-#### Constructor
+### Class
 
 ```python
-NovelToComic(output_dir: str = "comic_output")
+class EnhancedNovelToComic:
+    def __init__(self, output_dir: str = "comic_output"): ...
 ```
 
-#### Methods
+### Pipeline methods
 
 - `extract_entities(chapter: str) -> Tuple[List[Character], List[Location]]`
-
-  - Extracts characters and locations from chapter text using AI
-
+  - Uses Gemini to extract characters and locations with rich metadata
 - `generate_character_image(character: Character) -> str`
-
-  - Generates a consistent character image using Gemini 2.5 Flash
-
+  - Generates/updates a consistent character image and returns its path
 - `generate_location_image(location: Location) -> str`
-
-  - Generates a consistent location image using Gemini 2.5 Flash
-
-- `split_scenes(chapter: str) -> List[Scene]`
-
-  - Splits chapter into individual scenes using AI
-
-- `direct_panel(scene_description: str, characters: List[str], location: str) -> List[Panel]`
-
-  - Creates panel descriptions for a scene
-
+  - Generates a character-free background image and returns its path
+- `analyze_narrative_structure(chapter: str) -> Dict[str, Any]`
+  - Determines scene counts, types, flow, and target panel counts
+- `split_scenes_with_continuity(chapter: str) -> List[Scene]`
+  - Breaks chapter into scenes, preserving continuity links
+- `direct_panels_with_continuity(scene_description: str, characters: List[str], location: str, scene_type: str, narrative_flow: str, target_panels: int) -> List[Panel]`
+  - Directs panels with panel type and camera angle variety
 - `fetch_assets(panel: Panel) -> Dict[str, str]`
-
-  - Identifies and fetches required assets for a panel
-
+  - Ensures required images exist (generates or falls back) and returns asset paths
 - `generate_panel_image(panel: Panel, assets: Dict[str, str]) -> str`
-
-  - Generates the final panel image by composing assets
-
+  - Composes the final panel by combining character and location images
 - `process_chapter(chapter: str) -> List[str]`
-  - Main pipeline: converts chapter to list of panel image paths
+  - Runs the full pipeline and returns generated panel image paths
+- `test_asset_generation() -> bool`
+  - Utility for verifying character/location generation and validation
 
-### Data Classes
-
-#### Character
+### Data classes
 
 ```python
 @dataclass
@@ -174,114 +119,68 @@ class Character:
     description: str
     visual_traits: str
     image_path: Optional[str] = None
-```
+    last_seen_scene: Optional[str] = None
 
-#### Location
-
-```python
 @dataclass
 class Location:
     name: str
     description: str
     image_path: Optional[str] = None
-```
+    parent_location: Optional[str] = None
+    transition_type: Optional[str] = None  # "interior" | "exterior" | "transitional"
 
-#### Scene
-
-```python
 @dataclass
 class Scene:
     content: str
     characters: List[str]
     location: str
-    panels: List[str]
-```
+    scene_type: str
+    narrative_flow: str
+    estimated_panels: int
+    previous_scene: Optional[str] = None
+    next_scene: Optional[str] = None
 
-#### Panel
-
-```python
 @dataclass
 class Panel:
     description: str
     characters: List[str]
     location: str
     composition_prompt: str
+    panel_type: str
+    camera_angle: str
+
+@dataclass
+class NarrativeFlow:
+    current_scene: Optional[str] = None
+    scene_sequence: List[str] = None
+    location_transitions: List[Tuple[str, str, str]] = None
+    character_arcs: Dict[str, List[str]] = None
+    panel_count_optimization: Dict[str, int] = None
 ```
 
 ## Configuration
 
-### Environment Variables
+Configured via environment variables (supports `.env`):
 
-- `GOOGLE_API_KEY`: Your Google Gemini API key (required)
-
-### Output Directory Structure
-
-The application creates the following directory structure:
-
-```
-output_dir/
-├── characters/          # Character images
-│   ├── character1.png
-│   └── character2.png
-├── locations/           # Location images
-│   ├── location1.png
-│   └── location2.png
-├── panels/              # Generated comic panels
-│   ├── panel_0.png
-│   ├── panel_1.png
-│   └── ...
-├── characters.json      # Character metadata
-└── locations.json       # Location metadata
-```
+- `GOOGLE_CLOUD_PROJECT` (required)
+- `GOOGLE_CLOUD_LOCATION` (default: `global`)
+- `GOOGLE_CLOUD_SA_PATH` (required; absolute path recommended)
 
 ## Technical Details
 
-### Image Generation
+- **Libraries**: `google-genai` (Vertex AI mode), `Pillow`, `pydantic-settings`, `python-dotenv`
+- **Models**:
+  - Text/planning: `gemini-2.5-flash`
+  - Image generation: `gemini-2.5-flash-image-preview` (streaming)
+- **Location safety**: Prompts are sanitized to enforce character-free backgrounds
+- **Validation**: Generated files are verified before reuse; placeholders are created on failure
 
-The system uses Google's Gemini 2.5 Flash Image Preview model for image generation with the following approach:
+## Troubleshooting
 
-1. **Character Generation**: Creates consistent character portraits with detailed visual traits
-2. **Location Generation**: Creates establishing shots for locations
-3. **Panel Composition**: Combines characters and locations into cohesive comic panels
-
-### Asset Management
-
-- **Persistent Storage**: All assets are saved to disk and reused across sessions
-- **Validation**: Image files are validated before use
-- **Fallback**: Placeholder images are generated if actual generation fails
-
-### AI Prompts
-
-The system uses carefully crafted prompts to ensure:
-
-- Consistent manhwa/webtoon style
-- Character consistency across panels
-- Proper composition and framing
-- High-quality output
-
-## Limitations
-
-- Requires Google Gemini API access
-- Image generation quality depends on AI model performance
-- Processing time scales with chapter length and complexity
-- Character consistency relies on AI model understanding
-
-## Future Enhancements
-
-- **Advanced Composition**: Manual image composition using PIL/OpenCV
-- **Style Transfer**: Apply consistent art styles across all generated images
-- **Batch Processing**: Process multiple chapters in parallel
-- **Web Interface**: GUI for easier chapter input and panel management
-- **Export Options**: PDF, webtoon format, or other comic formats
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+- Ensure `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_SA_PATH` are set and the SA key file exists
+- Verify Vertex AI API is enabled and the service account has permissions
+- If generation fails or no client is available, placeholders will be created in the output directories
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT

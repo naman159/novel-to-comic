@@ -155,7 +155,6 @@ class Panel:
     composition_prompt: str
     panel_type: str  # "establishing", "action", "reaction", "transition"
     camera_angle: str  # "wide", "medium", "close", "bird_eye", "worm_eye"
-    redundancy_score: float = 0.0  # How similar to previous panels
 
 
 @dataclass
@@ -201,9 +200,7 @@ class EnhancedNovelToComic:
         # Narrative flow tracking
         self.narrative_flow = NarrativeFlow()
 
-        # Panel redundancy detection
-        self.generated_panels: List[Panel] = []
-        self.panel_similarity_threshold = 0.7
+        # Panel redundancy detection removed
 
         # Load existing assets
         self._load_assets()
@@ -594,46 +591,6 @@ class EnhancedNovelToComic:
 
         return scenes
 
-    def detect_panel_redundancy(self, new_panel: Panel) -> float:
-        """
-        Detect if a new panel is too similar to existing ones.
-        Returns a similarity score (0.0 = completely different, 1.0 = identical).
-        """
-        if not self.generated_panels:
-            return 0.0
-
-        # Simple redundancy detection based on panel characteristics
-        max_similarity = 0.0
-
-        for existing_panel in self.generated_panels[-3:]:  # Check last 3 panels
-            similarity = 0.0
-
-            # Location similarity
-            if new_panel.location == existing_panel.location:
-                similarity += 0.3
-
-            # Character overlap
-            char_overlap = len(
-                set(new_panel.characters) & set(existing_panel.characters)
-            )
-            total_chars = len(
-                set(new_panel.characters) | set(existing_panel.characters)
-            )
-            if total_chars > 0:
-                similarity += (char_overlap / total_chars) * 0.3
-
-            # Panel type similarity
-            if new_panel.panel_type == existing_panel.panel_type:
-                similarity += 0.2
-
-            # Camera angle similarity
-            if new_panel.camera_angle == existing_panel.camera_angle:
-                similarity += 0.2
-
-            max_similarity = max(max_similarity, similarity)
-
-        return max_similarity
-
     def direct_panels_with_continuity(
         self,
         scene_description: str,
@@ -644,7 +601,7 @@ class EnhancedNovelToComic:
         target_panels: int,
     ) -> List[Panel]:
         """
-        Direct and describe panels based on the scene with continuity and redundancy prevention.
+        Direct and describe panels based on the scene with continuity.
         """
         if client is None:
             print(
@@ -736,22 +693,6 @@ class EnhancedNovelToComic:
         panels = []
         for panel_data in panels_data["panels"]:
             panel = Panel(**panel_data)
-
-            # Check for redundancy
-            redundancy_score = self.detect_panel_redundancy(panel)
-            panel.redundancy_score = redundancy_score
-
-            # If panel is too similar, regenerate or skip
-            if redundancy_score > self.panel_similarity_threshold:
-                print(
-                    f"Panel too similar to existing ones (score: {redundancy_score:.2f}), regenerating..."
-                )
-                # Try to regenerate with different parameters
-                panel.camera_angle = "close" if panel.camera_angle == "wide" else "wide"
-                panel.panel_type = (
-                    "action" if panel.panel_type == "establishing" else "establishing"
-                )
-
             panels.append(panel)
 
         return panels
@@ -986,8 +927,7 @@ class EnhancedNovelToComic:
                 panel_path = self.generate_panel_image(panel, assets)
                 panel_paths.append(panel_path)
 
-                # Track generated panels for redundancy detection
-                self.generated_panels.append(panel)
+                # Stop tracking panel redundancy
                 total_panels_generated += 1
 
         print(f"\nTotal panels generated: {total_panels_generated}")
