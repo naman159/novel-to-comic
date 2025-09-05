@@ -1,0 +1,107 @@
+[
+  {
+    "name": "Mountains of Mist",
+    "description": "A range of cloud-capped peaks, the source of the cold wind, visible from Emond's Field. Known for harsh winters.",
+    "image_path": "example_comic/locations/mountains_of_mist.png"
+  },
+  {
+    "name": "Sand Hills",
+    "description": "An area east of the Mountains of Mist, once the shore of a great ocean. Considered bad luck by some in the Two Rivers.",
+    "image_path": "example_comic/locations/sand_hills.png"
+  },
+  {
+    "name": "Two Rivers",
+    "description": "The general region where the story is set, known for its stubborn people, fertile land, and sheep farming. It includes villages like Emond's Field, Watch Hill, and Deven Ride.",
+    "image_path": "example_comic/locations/two_rivers.png"
+  },
+  {
+    "name": "Westwood",
+    "description": "A tangled forest within the Two Rivers, bordering Emond's Field. Only the hardiest men farm here, and it feels unusually foreboding.",
+    "image_path": "example_comic/locations/westwood.png"
+  },
+  {
+    "name": "Quarry Road",
+    "description": "A rock-strewn track where Rand and Tam are traveling at the beginning of the chapter.",
+    "image_path": "example_comic/locations/quarry_road.png"
+  },
+  {
+    "name": "Emond\u2019s Field",
+    "description": "The main village where Rand and Tam live, situated close to the Westwood. It is bustling with preparations for the Bel Tine Festival.",
+    "image_path": "example_comic/locations/emond\u2019s_field.png"
+  },
+  {
+    "name": "Winespring Inn",
+    "description": "The prominent inn in Emond's Field, owned by Bran al'Vere. It stands at the east end of the Green and serves as a central gathering place, built with river rock and older stone, featuring a whitewashed second story and red roof tiles.",
+    "image_path": "example_comic/locations/winespring_inn.png"
+  },
+  {
+    "name": "The Green",
+    "description": "A broad, central expanse in Emond's Field, usually covered in thick grass, but currently showing patches of dead grass and bare earth. It is the primary site for Bel Tine Festival activities, including fires and the Spring Pole.",
+    "image_path": "example_comic/locations/the_green.png"
+  },
+  {
+    "name": "Winespring",
+    "description": "A gushing natural spring located near The Green in Emond's Field, renowned for its strong flow and sweet water, giving its name to the inn and the local water source.",
+    "image_path": "example_comic/locations/winespring.png"
+  },
+  {
+    "name": "Winespring Water",
+    "description": "A rapidly widening stream that flows swiftly east from the Winespring, passing Master Thane's mill before splitting into many streams in the Waterwood.",
+    "image_path": "example_comic/locations/winespring_water.png"
+  },
+  {
+    "name": "Waterwood",
+    "description": "A swampy area with numerous streams and ponds, located beyond the last farms east of Emond's Field. It's where Rand learned to swim.",
+    "image_path": "example_comic/locations/waterwood.png"
+  },
+  {
+    "name": "Watch Hill",
+    "description": "A village north of Emond's Field, accessible via the North Road. Mentioned as a common destination within the Two Rivers.",
+    "image_path": "example_comic/locations/watch_hill.png"
+  },
+  {
+    "name": "Deven Ride",
+    "description": "A village south of Emond's Field, accessible via the Old Road. Mentioned as a common destination within the Two Rivers.",
+    "image_path": "example_comic/locations/deven_ride.png"
+  },
+  {
+    "name": "Taren Ferry",
+    "description": "A location north of Emond's Field, connected by the North Road. Its inhabitants are stereotyped as untrusting.",
+    "image_path": "example_comic/locations/taren_ferry.png"
+  },
+  {
+    "name": "Baerlon",
+    "description": "A town from which merchants travel to Emond's Field for goods like wool or tabac, and from where the gleeman was brought.",
+    "image_path": "example_comic/locations/baerlon.png"
+  },
+  {
+    "name": "Shayol Ghul",
+    "description": "A mythical, legendary location where the Dark One and the Forsaken are said to be bound, beyond the Great Blight.",
+    "image_path": "example_comic/locations/shayol_ghul.png"
+  },
+  {
+    "name": "Great Blight",
+    "description": "A legendary dangerous region associated with Shayol Ghul, where the Dark One is bound.",
+    "image_path": "example_comic/locations/great_blight.png"
+  },
+  {
+    "name": "Master Thane's mill",
+    "description": "A mill located along the Winespring Water, east of Emond's Field.",
+    "image_path": "example_comic/locations/master_thane's_mill.png"
+  },
+  {
+    "name": "North Road",
+    "description": "A road leading north from Emond's Field, connecting to Watch Hill and Taren Ferry, which becomes the Old Road at the Wagon Bridge.",
+    "image_path": "example_comic/locations/north_road.png"
+  },
+  {
+    "name": "Old Road",
+    "description": "A road leading south from Emond's Field, connecting to Deven Ride, which is the continuation of the North Road at the Wagon Bridge.",
+    "image_path": "example_comic/locations/old_road.png"
+  },
+  {
+    "name": "Wagon Bridge",
+    "description": "A sturdy bridge wider than others, located near the Winespring Inn, marking the transition point between the North Road and the Old Road in Emond's Field.",
+    "image_path": "example_comic/locations/wagon_bridge.png"
+  }
+]

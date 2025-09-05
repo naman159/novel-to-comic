@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Rand al\u2019Thor",
+    "description": "The young protagonist, son of Tam al'Thor, initially on a journey with his father to deliver goods for Bel Tine. He is skilled with a bow and experiences intense fear from a mysterious cloaked figure.",
+    "visual_traits": "A tall young man, taller than his father, with gray eyes and reddish-tinged hair. He wears an earth-colored wool cloak and carries a bow and quiver.",
+    "image_path": "example_comic/characters/rand_al\u2019thor.png"
+  },
+  {
+    "name": "Tam al\u2019Thor",
+    "description": "Rand's father, a solid and practical farmer from the Westwood. He is a widower and delivers brandy and cider. He is known for his calm demeanor and winning archery competitions.",
+    "visual_traits": "A man with a thick chest, a broad face, and sun-roughened cheeks that are lined. His gray hair has a sprinkling of black. He wears a brown cloak and uses a broad-bladed spear as a walking staff.",
+    "image_path": "example_comic/characters/tam_al\u2019thor.png"
+  },
+  {
+    "name": "Bela",
+    "description": "The shaggy brown mare pulling Rand and Tam's cart. She is familiar with the route to the Winespring Inn.",
+    "visual_traits": "A shaggy brown mare.",
+    "image_path": "example_comic/characters/bela.png"
+  },
+  {
+    "name": "Cloaked Figure",
+    "description": "A mysterious and terrifying rider on a black horse who silently follows Rand and Tam, evoking a strong sense of evil and hatred, and vanishes without a trace. Also referred to as 'Rider', 'Dark Horseman', or 'Shadowman' by characters.",
+    "visual_traits": "A figure entirely covered by a black cloak that reaches his boot tops. His cowl is pulled far forward, revealing only a shadowed void where his face should be. He rides a black horse. His cloak unnaturally does not move or flap in the wind.",
+    "image_path": "example_comic/characters/cloaked_figure.png"
+  },
+  {
+    "name": "Mat Cauthon",
+    "description": "One of Rand's closest friends, known for his mischievous nature and pranks. He is also scared by the mysterious cloaked rider.",
+    "visual_traits": "A young, wiry boy with brown eyes that twinkle with mischief.",
+    "image_path": "example_comic/characters/mat_cauthon.png"
+  },
+  {
+    "name": "Egwene",
+    "description": "The Mayor's daughter, who makes Rand feel jittery and is likely to be at the Winespring Inn.",
+    "visual_traits": "A young girl (no explicit detailed visual description provided beyond this).",
+    "image_path": "example_comic/characters/egwene.png"
+  },
+  {
+    "name": "Wit Congar",
+    "description": "A scrawny man known as a complainer and troublemaker from the intermarried Congar and Coplin families. He criticizes Nynaeve, the Wisdom.",
+    "visual_traits": "A scrawny man with a sour expression.",
+    "image_path": "example_comic/characters/wit_congar.png"
+  },
+  {
+    "name": "Daise Congar",
+    "description": "Wit Congar's wife, a formidable woman who strongly defends the Women's Circle and keeps her husband in line.",
+    "visual_traits": "A hard-faced woman, twice as wide as her husband, with no ounce of fat. She is described with her fists on her hips, wearing an apron, and having her long hair done up in a kerchief.",
+    "image_path": "example_comic/characters/daise_congar.png"
+  },
+  {
+    "name": "Bran al\u2019Vere",
+    "description": "The innkeeper of the Winespring Inn and the Mayor of Emond's Field. He is a jovial but firm community leader, particularly concerned with the upcoming Bel Tine Festival.",
+    "visual_traits": "A large man, nearly double the girth of others, with a round face and a sparse fringe of gray hair. He wears shirtsleeves, a spotless white apron, and a silver medallion shaped like balance scales on his chest.",
+    "image_path": "example_comic/characters/bran_al\u2019vere.png"
+  },
+  {
+    "name": "Mistress al\u2019Donel",
+    "description": "A villager who complained to Mayor Bran al'Vere about the storks.",
+    "visual_traits": "No explicit detailed visual description provided.",
+    "image_path": "example_comic/characters/mistress_al\u2019donel.png"
+  },
+  {
+    "name": "Cenn Buie",
+    "description": "The village thatcher, an old, gnarled man known for his pessimism and spreading doom-and-gloom prophecies about the harsh winter.",
+    "visual_traits": "An old man, gnarled and dark like an old root. He leans on a walking staff that is nearly as tall and gnarled as himself.",
+    "image_path": "example_comic/characters/cenn_buie.png"
+  },
+  {
+    "name": "Nynaeve al\u2019Meara",
+    "description": "The village Wisdom, considered young for her position. She is known for her scowls and carrying a stick, and her predictions about the weather have failed.",
+    "visual_traits": "A young woman (no explicit detailed visual description provided beyond this). She is known to scowl and carries a stick.",
+    "image_path": "example_comic/characters/nynaeve_al\u2019meara.png"
+  },
+  {
+    "name": "Dav",
+    "description": "A friend of Mat Cauthon, who helped catch a badger and is now watching for the mysterious rider.",
+    "visual_traits": "No explicit detailed visual description provided.",
+    "image_path": "example_comic/characters/dav.png"
+  },
+  {
+    "name": "Elam Dowtry",
+    "description": "A friend of Mat Cauthon, who is watching for the mysterious rider but thinks Mat is trying to trick him.",
+    "visual_traits": "No explicit detailed visual description provided.",
+    "image_path": "example_comic/characters/elam_dowtry.png"
+  },
+  {
+    "name": "Mistress al\u2019Vere",
+    "description": "Bran al'Vere's wife. Cenn Buie seeks mulled wine from her.",
+    "visual_traits": "No explicit detailed visual description provided.",
+    "image_path": "example_comic/characters/mistress_al\u2019vere.png"
+  },
+  {
+    "name": "Gleeman",
+    "description": "A traveling entertainer (a storyteller and musician) who has just arrived in Emond's Field to perform during Bel Tine.",
+    "visual_traits": "A traveling entertainer wearing a multi-colored cloak, so extensively patched that there is more patch than original fabric.",
+    "image_path": "example_comic/characters/gleeman.png"
+  }
+]
